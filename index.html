@@ -1216,6 +1216,12 @@
 
   // BOOT
   document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.getElementById("productsGrid");
+    if (grid) {
+      Array.from(grid.querySelectorAll(".product-card"))
+        .sort((a, b) => parseInt(b.dataset.renames) - parseInt(a.dataset.renames))
+        .forEach(card => grid.appendChild(card));
+    }
     initDarkMode();
     initMobileNav();
     initNav();
