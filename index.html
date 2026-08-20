@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ReTransform SAP Edition – tracking every SAP product renaming, rebrand, and identity crisis since 1972." />
+  <title>ReTransform – SAP Renaming history</title>
+  <style>
+    :root {
+      --sap-blue: #0070F2;
+      --sap-blue-dark: #0040B0;
+      --accent: #00B9F2;
+      --sap-gold: #F0AB00;
+      --success: #256F3A;
+      --warning: #F0AB00;
+      --bg: #f5f6f7;
+      --surface: #ffffff;
+      --text: #00144A;
+      --text-muted: #556b82;
+      --border: #d1e4ff;
+      --nav-bg: #ffffff;
+      --nav-shadow: 0 2px 12px rgba(0,42,134,.08);
+      --hero-bg: linear-gradient(135deg, #1661BE 0%, #0070F2 55%, #00B9F2 100%);
+      --hero-text: #ffffff;
+      --card-bg: #ffffff;
+      --card-shadow: 0 2px 16px rgba(0,42,134,.08);
+      --card-shadow-hover: 0 8px 32px rgba(0,112,242,.18);
+      --timeline-line: #d1e4ff;
+      --timeline-dot: #0070F2;
+      --timeline-dot-latest: #256F3A;
+      --badge-bg: rgba(0,112,242,.1);
+      --badge-text: #0070F2;
+      --input-bg: #ffffff;
+      --input-border: #b3d4ff;
+      --input-focus: #0070F2;
+      --section-alt-bg: #EBF8FF;
+      --footer-bg: #00144A;
+      --footer-text: #a6c8f0;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --transition: 0.22s ease;
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+      --font: '72', '72override', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+    .dark {
+      --bg: #0a1929;
+      --surface: #10233d;
+      --text: #eaf3ff;
+      --text-muted: #8aa8cc;
+      --border: #1e3a5f;
+      --nav-bg: #0c1c30;
+      --nav-shadow: 0 2px 12px rgba(0,0,0,.4);
+      --hero-bg: linear-gradient(135deg, #002A86 0%, #0040B0 55%, #0070F2 100%);
+      --card-bg: #10233d;
+      --card-shadow: 0 2px 16px rgba(0,0,0,.35);
+      --card-shadow-hover: 0 8px 32px rgba(0,185,242,.2);
+      --timeline-line: #1e3a5f;
+      --timeline-dot: #4DB1FF;
+      --badge-bg: rgba(77,177,255,.15);
+      --badge-text: #4DB1FF;
+      --input-bg: #0a1929;
+      --input-border: #1e3a5f;
+      --section-alt-bg: #0c1c30;
+      --footer-bg: #00102e;
+      --footer-text: #6a92c8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; transition: background var(--transition), color var(--transition); }
+    a { color: var(--sap-blue); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent); }
+    ul, ol { list-style: none; }
+    button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
+    input, textarea, select { font-family: var(--font); font-size: 1rem; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,125,184,.4); } 50% { box-shadow: 0 0 0 8px rgba(0,125,184,0); } }
+
+    /* NAV */
+    .navbar { position: sticky; top: 0; z-index: 100; background: var(--nav-bg); box-shadow: var(--nav-shadow); transition: background var(--transition); border-top: 3px solid transparent; border-image: linear-gradient(90deg, #0070F2, #00B9F2) 1; }
+    .navbar__inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .navbar__logo { display: flex; flex-direction: column; line-height: 1.15; text-decoration: none; flex-shrink: 0; }
+    .navbar__logo-main { font-size: 1.25rem; font-weight: 800; color: var(--sap-blue); }
+    .navbar__logo-sub { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; }
+    .navbar__links { display: flex; align-items: center; gap: 0.25rem; }
+    .navbar__links a { padding: 0.45rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; color: var(--text); transition: background var(--transition), color var(--transition); }
+    .navbar__links a:hover, .navbar__links a.active { background: var(--badge-bg); color: var(--sap-blue); }
+    .dark-toggle { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--badge-bg); color: var(--sap-blue); font-size: 1.1rem; transition: background var(--transition), transform var(--transition); flex-shrink: 0; }
+    .dark-toggle:hover { background: var(--sap-blue); color: #fff; transform: rotate(20deg); }
+    .navbar__burger { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; }
+    .navbar__burger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* HERO */
+    .hero { background: var(--hero-bg); color: #fff; padding: 5rem 1.5rem 4rem; text-align: center; }
+    .hero__eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: rgba(255,255,255,.18); border-radius: var(--radius-xl); padding: 0.3rem 1rem; margin-bottom: 1.2rem; animation: fadeIn 0.4s ease both; }
+    .hero__title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -1px; margin-bottom: 1rem; animation: fadeIn 0.5s 0.1s ease both; }
+    .hero__subtitle { font-size: clamp(1rem, 2.5vw, 1.2rem); opacity: 0.88; max-width: 600px; margin: 0 auto 2.5rem; animation: fadeIn 0.5s 0.2s ease both; }
+    .hero__search { display: flex; align-items: center; max-width: 560px; margin: 0 auto 2rem; background: #fff; border-radius: var(--radius-xl); box-shadow: 0 4px 24px rgba(0,0,0,.18); overflow: hidden; animation: fadeIn 0.5s 0.3s ease both; }
+    .hero__search input { flex: 1; padding: 0.9rem 1.2rem; border: none; background: transparent; color: #1a1a2e; font-size: 1rem; }
+    .hero__search input:focus { outline: none; }
+    .hero__search button { padding: 0.75rem 1.5rem; background: var(--sap-blue); color: #fff; font-weight: 700; font-size: 0.9rem; border-radius: 0 var(--radius-xl) var(--radius-xl) 0; transition: background var(--transition); }
+    .hero__search button:hover { background: var(--accent); }
+    .hero__stats { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; animation: fadeIn 0.5s 0.4s ease both; }
+    .hero__stat { text-align: center; }
+    .hero__stat-value { display: block; font-size: 2rem; font-weight: 900; }
+    .hero__stat-label { display: block; font-size: 0.78rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+    .hero__stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,.3); }
+
+    /* SECTIONS */
+    .section { padding: 4rem 1.5rem; }
+    .section--alt { background: var(--section-alt-bg); transition: background var(--transition); }
+    .section__inner { max-width: 1200px; margin: 0 auto; }
+    .section__header { text-align: center; margin-bottom: 3rem; }
+    .section__title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .section__desc { font-size: 1rem; color: var(--text-muted); max-width: 540px; margin: 0 auto; }
+
+    /* BADGES */
+    .badge { display: inline-flex; align-items: center; padding: 0.22rem 0.7rem; border-radius: var(--radius-xl); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; background: var(--badge-bg); color: var(--badge-text); }
+    .badge--erp { background: rgba(0,125,184,.12); color: #007DB8; }
+    .badge--analytics { background: rgba(243,156,18,.15); color: #b8700d; }
+    .badge--crm { background: rgba(46,204,113,.12); color: #1a9e55; }
+    .badge--hcm { background: rgba(155,89,182,.12); color: #7d3fad; }
+    .badge--platform { background: rgba(231,76,60,.12); color: #b8321f; }
+    .badge--procurement { background: rgba(52,152,219,.12); color: #1a7ab8; }
+    .badge--supply { background: rgba(26,188,156,.12); color: #0e9e82; }
+    .badge--count { background: var(--sap-blue); color: #fff; }
+
+    /* FILTER BAR */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .filter-btn { padding: 0.45rem 1rem; border-radius: var(--radius-xl); font-size: 0.85rem; font-weight: 600; border: 2px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; transition: all 0.3s var(--ease); }
+    .filter-btn:hover, .filter-btn.active { background: var(--sap-blue); color: #fff; border-color: var(--sap-blue); }
+
+    /* CARD GRID */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .product-card { background: var(--card-bg); border-radius: var(--radius-md); box-shadow: var(--card-shadow); padding: 1.5rem; border: 1px solid var(--border); border-top: 3px solid transparent; display: flex; flex-direction: column; gap: 0.85rem; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), background var(--transition); animation: fadeIn 0.5s ease both; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); border-color: var(--sap-blue); border-top-color: var(--sap-blue); }
+    .card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+    .card__badges { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .card__name { font-size: 1.05rem; font-weight: 800; line-height: 1.25; margin-top: 0.4rem; }
+    .card__label { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* TIMELINE */
+    .card__timeline { position: relative; padding-left: 1.4rem; margin-top: 0.5rem; }
+    .card__timeline::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--timeline-line); border-radius: 2px; }
+    .timeline-item { position: relative; padding-bottom: 0.75rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -1.4rem; top: 5px; width: 13px; height: 13px; border-radius: 50%; background: var(--timeline-dot); border: 2px solid var(--card-bg); box-shadow: 0 0 0 2px var(--timeline-dot); }
+    .timeline-item:last-child .timeline-dot { background: var(--timeline-dot-latest); box-shadow: 0 0 0 2px var(--timeline-dot-latest); animation: pulse 2s infinite; }
+    .timeline-year { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .timeline-name { font-size: 0.88rem; font-weight: 600; }
+    .card__expand-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.35rem 0.85rem; font-size: 0.8rem; color: var(--sap-blue); font-weight: 600; cursor: pointer; transition: all var(--transition); margin-top: 0.25rem; align-self: flex-start; }
+    .card__expand-btn:hover { background: var(--badge-bg); }
+    .card__full-timeline { font-size: 0.82rem; color: var(--text-muted); padding: 0.75rem; background: var(--section-alt-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--sap-blue); }
+
+    /* LEADERBOARD */
+    .tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.55rem 1.2rem; border-radius: var(--radius-xl); font-size: 0.88rem; font-weight: 600; border: 2px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; transition: all var(--transition); }
+    .tab-btn.active { background: var(--sap-blue); color: #fff; border-color: var(--sap-blue); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .leaderboard-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .leaderboard-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border); transition: box-shadow var(--transition); }
+    .leaderboard-item:hover { box-shadow: var(--card-shadow); }
+    .rank-medal { font-size: 1.3rem; flex-shrink: 0; }
+    .rank-number { font-size: 1rem; font-weight: 800; color: var(--text-muted); width: 20px; flex-shrink: 0; }
+    .leaderboard-item .product-name { flex: 1; font-weight: 700; font-size: 0.95rem; }
+    .rename-count, .alias-count { font-size: 0.82rem; font-weight: 700; color: var(--sap-blue); white-space: nowrap; }
+    .leaderboard-bar-wrap { flex: 2; height: 8px; background: var(--border); border-radius: 8px; overflow: hidden; }
+    .leaderboard-bar { height: 100%; background: linear-gradient(90deg, var(--sap-blue), var(--accent)); border-radius: 8px; }
+    .alias-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem; }
+    .alias-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--badge-bg); color: var(--badge-text); border-radius: var(--radius-xl); font-weight: 600; }
+    .product-info { flex: 1; }
+
+    /* PROBABILITY METER */
+    .probability-list { display: flex; flex-direction: column; gap: 1rem; }
+    .probability-item { background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 1rem 1.25rem; }
+    .probability-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .probability-header .product-name { flex: 1; font-weight: 700; }
+    .probability-value { font-size: 1rem; font-weight: 900; color: var(--sap-blue); }
+    .probability-bar-track { height: 10px; background: var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 0.3rem; }
+    .probability-bar-fill { height: 100%; background: linear-gradient(90deg, var(--sap-blue), var(--accent)); border-radius: 8px; }
+    .probability-note { font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+
+    /* NAME GENERATOR */
+    .generator-wrap { max-width: 620px; margin: 0 auto; text-align: center; }
+    .generator-output { background: var(--card-bg); border: 2px dashed var(--sap-blue); border-radius: var(--radius-lg); padding: 2rem 1.5rem; margin-bottom: 1.5rem; min-height: 100px; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+    #generated-name { font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 900; color: var(--sap-blue); letter-spacing: -0.3px; }
+    .generator-btns { display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 2rem; background: var(--sap-blue); color: #fff; font-weight: 700; font-size: 1rem; border-radius: var(--radius-xl); transition: background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease); box-shadow: 0 4px 16px rgba(0,112,242,.3); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,112,242,.4); }
+    .btn-primary:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(0,112,242,.3); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: var(--card-bg); color: var(--sap-blue); font-weight: 700; font-size: 1rem; border-radius: var(--radius-xl); border: 2px solid var(--sap-blue); transition: all 0.3s var(--ease); }
+    .btn-secondary:hover { background: var(--badge-bg); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,112,242,.18); }
+    .btn-secondary:active { transform: translateY(1px); box-shadow: none; }
+    .word-pools { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; text-align: left; }
+    .pool-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .pool-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .pool-tag { font-size: 0.75rem; padding: 0.2rem 0.6rem; background: var(--badge-bg); color: var(--badge-text); border-radius: var(--radius-xl); font-weight: 600; }
+
+    /* QUIZ */
+    .quiz-card { max-width: 680px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius-md); box-shadow: var(--card-shadow); border: 1px solid var(--border); padding: 2rem; transition: background var(--transition); }
+    .quiz-progress-wrap { margin-bottom: 1.5rem; }
+    .quiz-progress-track { height: 8px; background: var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 0.4rem; }
+    .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--sap-blue), var(--accent)); border-radius: 8px; transition: width 0.4s ease; }
+    .quiz-progress-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+    #quiz-question { font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; line-height: 1.4; }
+    #quiz-options { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.25rem; }
+    .quiz-option-btn { padding: 0.85rem 1.2rem; border-radius: var(--radius-sm); border: 2px solid var(--border); background: var(--bg); color: var(--text); text-align: left; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all var(--transition); }
+    .quiz-option-btn:hover:not(:disabled) { border-color: var(--sap-blue); background: var(--badge-bg); color: var(--sap-blue); }
+    #quiz-score-screen { text-align: center; padding: 1.5rem 0; }
+    .score-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; }
+    #quiz-score-message { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    /* SUBMIT FORM */
+    .submit-wrap { max-width: 640px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius-md); box-shadow: var(--card-shadow); border: 1px solid var(--border); padding: 2rem; transition: background var(--transition); }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .form-group input, .form-group textarea, .form-group select { padding: 0.75rem 1rem; border: 2px solid var(--input-border); border-radius: var(--radius-sm); background: var(--input-bg); color: var(--text); transition: border-color var(--transition), background var(--transition); font-size: 0.95rem; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--input-focus); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .required-mark { color: #e74c3c; }
+    .optional-mark { color: var(--text-muted); font-weight: 400; }
+    .submit-disclaimer { font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem; }
+
+    /* DATABASE TABLE */
+    .db-controls { display: flex; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: flex-end; }
+    .db-controls label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.4px; display: block; margin-bottom: 0.3rem; }
+    .db-controls input, .db-controls select { padding: 0.6rem 0.9rem; border: 2px solid var(--input-border); border-radius: var(--radius-sm); background: var(--input-bg); color: var(--text); font-size: 0.88rem; transition: border-color var(--transition), background var(--transition); }
+    .db-controls input:focus, .db-controls select:focus { outline: none; border-color: var(--input-focus); }
+    .db-table-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+    .db-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--card-bg); transition: background var(--transition); }
+    .db-table thead { background: var(--sap-blue); color: #fff; }
+    .db-table th { padding: 0.85rem 1.1rem; text-align: left; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    .db-table td { padding: 0.8rem 1.1rem; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+    .db-table tbody tr:last-child td { border-bottom: none; }
+    .db-table tbody tr:hover { background: rgba(0,125,184,.04); }
+    .db-table .prev-list { display: flex; flex-direction: column; gap: 0.2rem; }
+    .db-table .prev-item { font-size: 0.82rem; }
+    .db-table .prev-year { font-weight: 700; color: var(--sap-blue); margin-right: 0.35rem; }
+    .db-count { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+    /* FOOTER */
+    .footer { background: var(--footer-bg); color: var(--footer-text); padding: 3rem 1.5rem 2rem; transition: background var(--transition); }
+    .footer__inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .footer__logo-main { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .footer__logo-sub { font-size: 0.68rem; font-weight: 600; color: var(--footer-text); text-transform: uppercase; letter-spacing: 1.2px; }
+    .footer__tagline { font-size: 0.85rem; margin-top: 0.75rem; line-height: 1.6; }
+    .footer__col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 0.85rem; }
+    .footer__links li { margin-bottom: 0.5rem; }
+    .footer__links a { font-size: 0.85rem; color: var(--footer-text); transition: color var(--transition); }
+    .footer__links a:hover { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.78rem; color: var(--footer-text); max-width: 1200px; margin: 0 auto; }
+
+    @media (max-width: 900px) {
+      .footer__inner { grid-template-columns: 1fr 1fr; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .navbar__links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--nav-bg); padding: 1rem; box-shadow: var(--nav-shadow); z-index: 99; }
+      .navbar__links.open { display: flex; }
+      .navbar__burger { display: flex; }
+      .navbar__inner { position: relative; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .section { padding: 2.5rem 1.25rem; }
+      .footer__inner { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .leaderboard-bar-wrap { display: none; }
+      .db-controls { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="#" class="navbar__logo">
+      <span class="navbar__logo-main">🔄 ReTransform</span>
+    </a>
+    <ul class="navbar__links" id="navLinks">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#leaderboard">Leaderboard</a></li>
+      <li><a href="#generator">Generator</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#submit">Submit</a></li>
+      <li><a href="#database">Database</a></li>
+    </ul>
+    <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="navbar__burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero__eyebrow">SAP Product Name Tracker</div>
+  <h1 class="hero__title">SAP Renames, Decoded.</h1>
+  <p class="hero__subtitle">Track every name change across the SAP product portfolio — past, present, and future. Never lose a product again.</p>
+  <div class="hero__search">
+    <input type="search" id="search-input" placeholder="Search by current name, old name, or category…" autocomplete="off" />
+    <button type="button">Search</button>
+  </div>
+  <div class="hero__stats">
+    <div class="hero__stat"><span class="hero__stat-value" id="stat-products">32+</span><span class="hero__stat-label">Products Tracked</span></div>
+    <div class="hero__stat-divider"></div>
+    <div class="hero__stat"><span class="hero__stat-value">90+</span><span class="hero__stat-label">Total Renames</span></div>
+    <div class="hero__stat-divider"></div>
+    <div class="hero__stat"><span class="hero__stat-value">3</span><span class="hero__stat-label">Rename Waves</span></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Product Rename Timeline</h2>
+      <p class="section__desc">Browse SAP products and their full naming history.</p>
+    </div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="All">All</button>
+      <button class="filter-btn" data-filter="ERP">ERP</button>
+      <button class="filter-btn" data-filter="HCM">HCM</button>
+      <button class="filter-btn" data-filter="Analytics">Analytics</button>
+      <button class="filter-btn" data-filter="CRM">CRM</button>
+      <button class="filter-btn" data-filter="Procurement">Procurement</button>
+      <button class="filter-btn" data-filter="Platform">Platform</button>
+      <button class="filter-btn" data-filter="Supply Chain">Supply Chain</button>
+      <button class="filter-btn" data-filter="Integration">Integration</button>
+    </div>
+    <div class="card-grid" id="productsGrid">
+
+      <!-- SAP S/4HANA -->
+      <article class="product-card" data-category="ERP" data-renames="4" data-name="SAP S/4HANA" data-previous="SAP R/1 SAP R/2 SAP R/3 mySAP ERP SAP ECC">
+        <div class="card__top">
+          <div class="card__badges"><span class="badge badge--erp">ERP</span><span class="badge badge--count">4 renames</span></div>
+        </div>
+        <div class="card__name">SAP S/4HANA</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1973</div><div class="timeline-name">SAP R/1</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1979</div><div class="timeline-name">SAP R/2</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1992</div><div class="timeline-name">SAP R/3</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2004</div><div class="timeline-name">mySAP ERP / SAP ECC</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2015</div><div class="timeline-name">SAP S/4HANA</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Launched February 3, 2015 at the NYSE. Next-gen ERP built natively on the SAP HANA in-memory database. Lineage runs from R/1 (1973) through R/2, R/3, and ECC. ECC is in maintenance mode (mainstream support ends 2027).</div>
+      </article>
+
+      <!-- SAP SuccessFactors -->
+      <article class="product-card" data-category="HCM" data-renames="2" data-name="SAP SuccessFactors" data-previous="SuccessFactors BizX SuccessFactors an SAP company">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--hcm">HCM</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP SuccessFactors</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2001</div><div class="timeline-name">SuccessFactors (BizX platform)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2012</div><div class="timeline-name">SuccessFactors, an SAP company</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2016</div><div class="timeline-name">SAP SuccessFactors</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Founded 2001 by Lars Dalgaard; "BizX" (Business Execution) was the platform suite name, not an early company name. SAP's acquisition closed February 16, 2012 for ~$3.4B. Became SAP's primary cloud HCM suite.</div>
+      </article>
+
+      <!-- SAP Commerce Cloud -->
+      <article class="product-card" data-category="CRM" data-renames="3" data-name="SAP Commerce Cloud" data-previous="Hybris SAP Hybris SAP Hybris Commerce">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">CRM</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Commerce Cloud</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1997</div><div class="timeline-name">Hybris (founded)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2013</div><div class="timeline-name">SAP Hybris Commerce</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Commerce Cloud</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Hybris was founded in 1997 (Switzerland); its first product shipped ~2001. SAP acquired Hybris August 1, 2013. The Hybris brand was dropped in 2018 as part of the C/4HANA / SAP CX rebranding.</div>
+      </article>
+
+      <!-- SAP Analytics Cloud -->
+      <article class="product-card" data-category="Analytics" data-renames="3" data-name="SAP Analytics Cloud" data-previous="SAP Cloud for Planning SAP Cloud for Analytics SAP BusinessObjects Cloud SAC">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--analytics">Analytics</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Analytics Cloud</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2015</div><div class="timeline-name">SAP Cloud for Planning → Cloud for Analytics</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2016</div><div class="timeline-name">SAP BusinessObjects Cloud</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2017</div><div class="timeline-name">SAP Analytics Cloud (SAC)</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Started life in 2015 as SAP Cloud for Planning, broadened to SAP Cloud for Analytics, then SAP BusinessObjects Cloud (2016), and finally SAP Analytics Cloud (2017). SAP's strategic cloud BI platform combining analytics, planning, and predictive.</div>
+      </article>
+
+      <!-- SAP Business Technology Platform -->
+      <article class="product-card" data-category="Platform" data-renames="3" data-name="SAP Business Technology Platform" data-previous="SAP HANA Cloud Platform HCP SAP Cloud Platform SCP BTP">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">Platform</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Business Technology Platform</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2012</div><div class="timeline-name">SAP NetWeaver Cloud / SAP HANA Cloud Platform (HCP)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2017</div><div class="timeline-name">SAP Cloud Platform (SCP)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP Business Technology Platform (BTP)</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Retired January 18, 2021. BTP is the unified platform umbrella for integration, extension, analytics, and database services across the SAP portfolio.</div>
+      </article>
+
+      <!-- SAP Ariba -->
+      <article class="product-card" data-category="Procurement" data-renames="2" data-name="SAP Ariba" data-previous="Ariba Ariba an SAP company Procuresoft">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--procurement">Procurement</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP Ariba</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1996</div><div class="timeline-name">Ariba (founded as Procuresoft)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2012</div><div class="timeline-name">Ariba, an SAP company</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2014</div><div class="timeline-name">SAP Ariba</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired October 2012 for ~$4.3B. Ariba Network was later renamed SAP Business Network (2021) to encompass broader supply chain collaboration.</div>
+      </article>
+
+      <!-- SAP Concur -->
+      <article class="product-card" data-category="Procurement" data-renames="1" data-name="SAP Concur" data-previous="Concur Technologies">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--procurement">T&amp;E</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Concur</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1993</div><div class="timeline-name">Concur Technologies</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Concur</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired December 2014 for ~$8.3B (SAP's largest acquisition at the time). Officially rebranded SAP Concur in 2018 to reflect deeper SAP integration.</div>
+      </article>
+
+      <!-- SAP Customer Experience -->
+      <article class="product-card" data-category="CRM" data-renames="3" data-name="SAP Customer Experience" data-previous="SAP Hybris C/4HANA SAP CRM SAP CX">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">CRM</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Customer Experience (SAP CX)</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2016</div><div class="timeline-name">SAP Hybris (CEC umbrella)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP C/4HANA</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-name">SAP Customer Experience (SAP CX)</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">C/4HANA was announced at SAPPHIRE NOW in June 2018, but the name was considered too technical; SAP dropped it in favor of SAP Customer Experience (SAP CX) around June 2020. Encompasses Sales Cloud, Service Cloud, Commerce Cloud, Marketing Cloud, and Customer Data Cloud.</div>
+      </article>
+
+      <!-- SAP Datasphere -->
+      <article class="product-card" data-category="Analytics" data-renames="1" data-name="SAP Datasphere" data-previous="SAP Data Warehouse Cloud">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--analytics">Analytics</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Datasphere</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-name">SAP Data Warehouse Cloud</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-name">SAP Datasphere</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Renamed March 8, 2023. Existing tenants were migrated automatically. New capabilities include data cataloging, semantic modeling, and broader data integration.</div>
+      </article>
+
+      <!-- SAP BusinessObjects -->
+      <article class="product-card" data-category="Analytics" data-renames="1" data-name="SAP BusinessObjects" data-previous="Business Objects BusinessObjects Crystal Reports Crystal Decisions">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--analytics">Analytics</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP BusinessObjects</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1990</div><div class="timeline-name">Business Objects (independent)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2008</div><div class="timeline-name">SAP BusinessObjects</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Business Objects was founded in 1990 by Bernard Liautaud and Denis Payre. SAP's acquisition was announced October 2007 (~€4.8B) and closed early 2008. The deal also brought Crystal Reports (via Crystal Decisions, acquired 2003), Xcelsius, and Voyager into the SAP portfolio.</div>
+      </article>
+
+      <!-- SAP Integration Suite -->
+      <article class="product-card" data-category="Integration" data-renames="4" data-name="SAP Integration Suite" data-previous="SAP HANA Cloud Integration HCI SAP Cloud Platform Integration CPI SAP Process Integration PI SAP Exchange Infrastructure XI">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">Integration</span><span class="badge badge--count">4 renames</span></div></div>
+        <div class="card__name">SAP Integration Suite</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2002</div><div class="timeline-name">SAP Exchange Infrastructure (XI)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2005</div><div class="timeline-name">SAP Process Integration (PI) → later PO</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2013</div><div class="timeline-name">SAP HANA Cloud Integration (HCI)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2017</div><div class="timeline-name">SAP Cloud Platform Integration (CPI)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP Integration Suite</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">On-premise lineage: XI (2002) → PI (renamed with PI 7.0 in 2005) → PO. Cloud lineage: HCI (2013) → CPI (renamed ~2017 with the Cloud Platform rebrand) → SAP Integration Suite (2021), where the capability is now called "Cloud Integration."</div>
+      </article>
+
+      <!-- SAP Build Apps -->
+      <article class="product-card" data-category="Platform" data-renames="2" data-name="SAP Build Apps" data-previous="AppGyver SAP AppGyver">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">Low-Code</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP Build Apps</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2010</div><div class="timeline-name">AppGyver (independent)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP AppGyver</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022</div><div class="timeline-name">SAP Build Apps</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired by SAP in 2021. Renamed SAP Build Apps in November 2022 as part of the SAP Build low-code/no-code suite launch at SAP TechEd 2022.</div>
+      </article>
+
+      <!-- SAP Build Process Automation -->
+      <article class="product-card" data-category="Platform" data-renames="3" data-name="SAP Build Process Automation" data-previous="Contextor SAP Intelligent RPA iRPA SAP Process Automation">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">Automation</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Build Process Automation</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">Contextor → SAP Intelligent RPA (iRPA)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP Process Automation (merged with Workflow Mgmt)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022</div><div class="timeline-name">SAP Build Process Automation</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">SAP acquired Contextor in 2018. Merged SAP Intelligent RPA and SAP Workflow Management into a single low-code tool under the SAP Build suite.</div>
+      </article>
+
+      <!-- SAP Fieldglass -->
+      <article class="product-card" data-category="Procurement" data-renames="2" data-name="SAP Fieldglass" data-previous="b2bpeople.com Fieldglass">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--procurement">Procurement</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP Fieldglass</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1999</div><div class="timeline-name">b2bpeople.com → Fieldglass</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2014</div><div class="timeline-name">SAP Fieldglass</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired by SAP in May 2014. SAP's vendor management system (VMS) for contingent workforce and external workforce management.</div>
+      </article>
+
+      <!-- SAP Conversational AI -->
+      <article class="product-card" data-category="Platform" data-renames="1" data-name="SAP Conversational AI" data-previous="Recast.AI">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">AI</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Conversational AI</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2015</div><div class="timeline-name">Recast.AI (independent)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-name">SAP Conversational AI</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">SAP acquired Recast.AI (founded 2015, Paris) in January 2018 and renamed it SAP Conversational AI in January 2019. SAP's chatbot and NLP platform — now in maintenance mode as of January 2023, superseded by SAP's newer Business AI / Joule offerings.</div>
+      </article>
+
+      <!-- SAP Signavio -->
+      <article class="product-card" data-category="Platform" data-renames="1" data-name="SAP Signavio" data-previous="Signavio">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">BPM</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Signavio</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2009</div><div class="timeline-name">Signavio GmbH (independent)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP Signavio</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired by SAP in March 2021 for ~$1.2B. Business process intelligence and transformation tools. Signavio GmbH was merged into SAP SE by absorption.</div>
+      </article>
+
+      <!-- SAP Marketing Cloud -->
+      <article class="product-card" data-category="CRM" data-renames="2" data-name="SAP Marketing Cloud" data-previous="SAP Customer Engagement Intelligence SAP hybris Marketing SAP Hybris Marketing">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">CRM</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP Marketing Cloud</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2014</div><div class="timeline-name">SAP hybris Marketing</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2015</div><div class="timeline-name">SAP Hybris Marketing</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Marketing Cloud</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Originally SAP Customer Engagement Intelligence; became SAP Hybris Marketing (2015), then SAP Marketing Cloud (2018) as part of the SAP CX portfolio.</div>
+      </article>
+
+      <!-- SAP Service Cloud -->
+      <article class="product-card" data-category="CRM" data-renames="1" data-name="SAP Service Cloud" data-previous="SAP Hybris Service Cloud">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">CRM</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Service Cloud</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2016</div><div class="timeline-name">SAP Hybris Service Cloud</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Service Cloud</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">The "Hybris" prefix was dropped in 2018 during the SAP C/4HANA / SAP CX rebranding. Part of the SAP Customer Experience suite.</div>
+      </article>
+
+      <!-- SAP Emarsys Customer Engagement -->
+      <article class="product-card" data-category="CRM" data-renames="1" data-name="SAP Emarsys Customer Engagement" data-previous="Emarsys SAP Engagement Cloud">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">CX</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Emarsys Customer Engagement</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2000</div><div class="timeline-name">Emarsys (founded)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-name">SAP Emarsys</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Emarsys was acquired October 1, 2020 and folded into SAP CX. Briefly associated with "SAP Engagement Cloud" messaging; now SAP Emarsys Customer Engagement.</div>
+      </article>
+
+      <!-- SAP CPQ -->
+      <article class="product-card" data-category="CRM" data-renames="1" data-name="SAP CPQ" data-previous="CallidusCloud CPQ">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--crm">Sales</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP CPQ</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">CallidusCloud CPQ</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP CPQ</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">SAP acquired CallidusCloud in 2018; its Configure-Price-Quote product was rebranded to SAP CPQ.</div>
+      </article>
+
+      <!-- SAP SuccessFactors Incentive Management -->
+      <article class="product-card" data-category="HCM" data-renames="3" data-name="SAP SuccessFactors Incentive Management" data-previous="Callidus TrueComp CallidusCloud Commissions SAP Commissions">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--hcm">HCM</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP SuccessFactors Incentive Management</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1996</div><div class="timeline-name">Callidus TrueComp</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Commissions</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-name">SAP SuccessFactors Incentive Management</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Lineage: Callidus TrueComp → CallidusCloud Commissions → SAP Commissions (post-2018 acquisition) → SAP SuccessFactors Incentive Management (2023).</div>
+      </article>
+
+      <!-- SAP Enable Now -->
+      <article class="product-card" data-category="HCM" data-renames="2" data-name="SAP Enable Now" data-previous="datango SAP Workforce Performance Builder">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--hcm">Learning</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">SAP Enable Now</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2012</div><div class="timeline-name">datango (acquired)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2014</div><div class="timeline-name">SAP Workforce Performance Builder</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2017</div><div class="timeline-name">SAP Enable Now</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Built on tech from datango AG (acquired 2012). Renamed from SAP Workforce Performance Builder to SAP Enable Now at version 10.</div>
+      </article>
+
+      <!-- SAP Business Network -->
+      <article class="product-card" data-category="Procurement" data-renames="1" data-name="SAP Business Network" data-previous="Ariba Network">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--procurement">Procurement</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Business Network</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1996</div><div class="timeline-name">Ariba Network</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-name">SAP Business Network</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Ariba Network was renamed SAP Business Network in 2021 (starting the SAP Ariba 2105 release), split into Business Network for Procurement, Suppliers, and Logistics.</div>
+      </article>
+
+      <!-- SAP Data Intelligence -->
+      <article class="product-card" data-category="Analytics" data-renames="1" data-name="SAP Data Intelligence" data-previous="SAP Data Hub">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--analytics">Data</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP Data Intelligence</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2017</div><div class="timeline-name">SAP Data Hub</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-name">SAP Data Intelligence</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">SAP Data Hub (on-prem, 2017) evolved into the cloud offering SAP Data Intelligence in 2019. Data orchestration and metadata management.</div>
+      </article>
+
+      <!-- SAP LeanIX -->
+      <article class="product-card" data-category="Platform" data-renames="1" data-name="SAP LeanIX" data-previous="LeanIX">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">EAM</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP LeanIX</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2012</div><div class="timeline-name">LeanIX (founded)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-name">SAP LeanIX</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Enterprise architecture management platform. SAP's acquisition closed November 2023.</div>
+      </article>
+
+      <!-- SAP WalkMe -->
+      <article class="product-card" data-category="Platform" data-renames="1" data-name="SAP WalkMe" data-previous="WalkMe">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">DAP</span><span class="badge badge--count">1 rename</span></div></div>
+        <div class="card__name">SAP WalkMe</div>
+        <div class="card__label">Current Name</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2011</div><div class="timeline-name">WalkMe (founded)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2024</div><div class="timeline-name">SAP WalkMe</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Digital adoption platform. SAP's acquisition (~$1.5B) closed September 12, 2024.</div>
+      </article>
+
+      <!-- Qualtrics (divested) -->
+      <article class="product-card" data-category="Platform" data-renames="2" data-name="Qualtrics" data-previous="Qualtrics SAP Qualtrics">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--platform">XM</span><span class="badge badge--count">2 renames</span></div></div>
+        <div class="card__name">Qualtrics (divested)</div>
+        <div class="card__label">Former SAP Brand</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2002</div><div class="timeline-name">Qualtrics (founded)</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-name">SAP Qualtrics</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-name">Qualtrics (divested)</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Acquired by SAP January 2019 (~$8B), IPO'd 2021. SAP divested its majority stake in 2023 (to Silver Lake + CPP Investments). No longer an SAP product.</div>
+      </article>
+
+      <!-- SAP Litmos (divested) -->
+      <article class="product-card" data-category="HCM" data-renames="3" data-name="SAP Litmos" data-previous="Litmos CallidusCloud Litmos SAP Litmos">
+        <div class="card__top"><div class="card__badges"><span class="badge badge--hcm">Learning</span><span class="badge badge--count">3 renames</span></div></div>
+        <div class="card__name">SAP Litmos (divested)</div>
+        <div class="card__label">Former SAP Brand</div>
+        <div class="card__timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2007</div><div class="timeline-name">Litmos</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2011</div><div class="timeline-name">CallidusCloud Litmos</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-name">SAP Litmos</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022</div><div class="timeline-name">Litmos (divested)</div></div>
+        </div>
+        <button class="card__expand-btn">Show Notes</button>
+        <div class="card__full-timeline" style="display:none">Learning management system. Came to SAP via CallidusCloud (2018). SAP divested Litmos to Francisco Partners in 2022.</div>
+      </article>
+
+    </div>
+    <p id="no-results-cards" style="display:none;text-align:center;padding:2rem;color:var(--text-muted)">No products match your search.</p>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section class="section section--alt" id="leaderboard">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Leaderboard</h2>
+      <p class="section__desc">Who's winning the rename game?</p>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="panel-most-renames">Most Renames</button>
+      <button class="tab-btn" data-tab="panel-most-aliases">Most Aliases</button>
+      <button class="tab-btn" data-tab="panel-probability">Rename Probability Meter</button>
+    </div>
+
+    <div class="tab-panel active" id="panel-most-renames">
+      <ol class="leaderboard-list">
+        <li class="leaderboard-item"><span class="rank-medal">🥇</span><span class="rank-number">1</span><span class="product-name">SAP S/4HANA</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:100%"></div></div><span class="rename-count">4 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-medal">🥈</span><span class="rank-number">2</span><span class="product-name">SAP Integration Suite</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:100%"></div></div><span class="rename-count">4 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-medal">🥉</span><span class="rank-number">3</span><span class="product-name">SAP Sales Cloud</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:100%"></div></div><span class="rename-count">4 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-number">4</span><span class="product-name">SAP Commerce Cloud</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:75%"></div></div><span class="rename-count">3 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-number">5</span><span class="product-name">SAP Analytics Cloud</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:75%"></div></div><span class="rename-count">3 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-number">6</span><span class="product-name">SAP Customer Experience</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:75%"></div></div><span class="rename-count">3 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-number">7</span><span class="product-name">SAP Business Technology Platform</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:75%"></div></div><span class="rename-count">3 renames</span></li>
+        <li class="leaderboard-item"><span class="rank-number">8</span><span class="product-name">SAP SuccessFactors Incentive Management</span><div class="leaderboard-bar-wrap"><div class="leaderboard-bar" style="width:75%"></div></div><span class="rename-count">3 renames</span></li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" id="panel-most-aliases">
+      <ol class="leaderboard-list">
+        <li class="leaderboard-item"><span class="rank-medal">🥇</span><span class="rank-number">1</span><div class="product-info"><span class="product-name">SAP S/4HANA</span><div class="alias-tags"><span class="alias-tag">S4</span><span class="alias-tag">S4H</span><span class="alias-tag">S/4</span><span class="alias-tag">S4HANA</span><span class="alias-tag">SHANA</span></div></div><span class="alias-count">5 aliases</span></li>
+        <li class="leaderboard-item"><span class="rank-medal">🥈</span><span class="rank-number">2</span><div class="product-info"><span class="product-name">SAP BTP</span><div class="alias-tags"><span class="alias-tag">BTP</span><span class="alias-tag">SCP</span><span class="alias-tag">HCP</span><span class="alias-tag">SAP Cloud Platform</span><span class="alias-tag">NetWeaver Cloud</span></div></div><span class="alias-count">5 aliases</span></li>
+        <li class="leaderboard-item"><span class="rank-medal">🥉</span><span class="rank-number">3</span><div class="product-info"><span class="product-name">SAP SuccessFactors</span><div class="alias-tags"><span class="alias-tag">SF</span><span class="alias-tag">SFSF</span><span class="alias-tag">SuccessFactors</span><span class="alias-tag">BizX</span></div></div><span class="alias-count">4 aliases</span></li>
+        <li class="leaderboard-item"><span class="rank-number">4</span><div class="product-info"><span class="product-name">SAP Analytics Cloud</span><div class="alias-tags"><span class="alias-tag">SAC</span><span class="alias-tag">SAP SAC</span><span class="alias-tag">Cloud Analytics</span></div></div><span class="alias-count">3 aliases</span></li>
+        <li class="leaderboard-item"><span class="rank-number">5</span><div class="product-info"><span class="product-name">SAP ECC</span><div class="alias-tags"><span class="alias-tag">ECC</span><span class="alias-tag">ECC6</span><span class="alias-tag">ERP Central Component</span><span class="alias-tag">R/3 successor</span></div></div><span class="alias-count">4 aliases</span></li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" id="panel-probability">
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;font-style:italic">Totally scientific probability of being renamed again. 🔬</p>
+      <ul class="probability-list">
+        <li class="probability-item"><div class="probability-header"><span class="rank-medal">🥇</span><span class="product-name">SAP Customer Experience</span><span class="probability-value">94%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:94%"></div></div><span class="probability-note">Practically inevitable — starts with "Experience"</span></li>
+        <li class="probability-item"><div class="probability-header"><span class="rank-medal">🥈</span><span class="product-name">SAP Analytics Cloud</span><span class="probability-value">87%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:87%"></div></div><span class="probability-note">Start updating your slides now</span></li>
+        <li class="probability-item"><div class="probability-header"><span class="rank-medal">🥉</span><span class="product-name">SAP BTP</span><span class="probability-value">81%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:81%"></div></div><span class="probability-note">It has been suspiciously quiet since 2021</span></li>
+        <li class="probability-item"><div class="probability-header"><span class="product-name">SAP S/4HANA</span><span class="probability-value">72%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:72%"></div></div><span class="probability-note">Will it become SAP S/5HANA?</span></li>
+        <li class="probability-item"><div class="probability-header"><span class="product-name">SAP Datasphere</span><span class="probability-value">65%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:65%"></div></div><span class="probability-note">Already renamed once — history repeats</span></li>
+        <li class="probability-item"><div class="probability-header"><span class="product-name">SAP SuccessFactors</span><span class="probability-value">45%</span></div><div class="probability-bar-track"><div class="probability-bar-fill" style="width:45%"></div></div><span class="probability-note">Coin flip territory</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NAME GENERATOR -->
+<section class="section" id="generator">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">SAP Name Generator</h2>
+      <p class="section__desc">Generate your very own SAP product name — 100% buzzword-powered.</p>
+    </div>
+    <div class="generator-wrap">
+      <div class="generator-output">
+        <span id="generated-name">SAP Intelligent Cloud Business Suite Enterprise Edition</span>
+      </div>
+      <div class="generator-btns">
+        <button class="btn-primary" id="generate-name-btn">Generate ✨</button>
+        <button class="btn-secondary" id="copy-name-btn">Copy</button>
+      </div>
+      <div class="word-pools">
+        <div><div class="pool-label">Adjectives</div><div class="pool-tags"><span class="pool-tag">Intelligent</span><span class="pool-tag">Smart</span><span class="pool-tag">Digital</span><span class="pool-tag">Next-Gen</span><span class="pool-tag">Advanced</span><span class="pool-tag">Unified</span><span class="pool-tag">Connected</span><span class="pool-tag">Adaptive</span></div></div>
+        <div><div class="pool-label">Domains</div><div class="pool-tags"><span class="pool-tag">Business</span><span class="pool-tag">Enterprise</span><span class="pool-tag">Commerce</span><span class="pool-tag">Analytics</span><span class="pool-tag">Experience</span><span class="pool-tag">Integration</span><span class="pool-tag">Automation</span></div></div>
+        <div><div class="pool-label">Nouns</div><div class="pool-tags"><span class="pool-tag">Cloud</span><span class="pool-tag">Suite</span><span class="pool-tag">Hub</span><span class="pool-tag">Platform</span><span class="pool-tag">Engine</span><span class="pool-tag">Studio</span><span class="pool-tag">Portal</span><span class="pool-tag">Workspace</span></div></div>
+        <div><div class="pool-label">Suffixes</div><div class="pool-tags"><span class="pool-tag">Management</span><span class="pool-tag">Solutions</span><span class="pool-tag">Services</span><span class="pool-tag">Edition</span><span class="pool-tag">Pro</span><span class="pool-tag">Plus</span><span class="pool-tag">360</span><span class="pool-tag">One</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="section section--alt" id="quiz">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">SAP Rename Quiz</h2>
+      <p class="section__desc">Do you know your SAP product history?</p>
+    </div>
+    <div class="quiz-card" id="quiz-container">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quiz-progress-bar" style="width:20%"></div></div>
+        <span class="quiz-progress-label" id="quiz-progress-label">1 / 5</span>
+      </div>
+      <div id="quiz-question-screen">
+        <p id="quiz-question"></p>
+        <div id="quiz-options"></div>
+      </div>
+      <div id="quiz-score-screen" style="display:none;text-align:center;padding:1.5rem 0">
+        <div class="score-title">Quiz Complete!</div>
+        <p id="quiz-score-message"></p>
+        <button class="btn-primary" id="quiz-restart-btn" style="margin:0 auto">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMIT -->
+<section class="section" id="submit">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Submit a Rename</h2>
+      <p class="section__desc">Know of an SAP product rename we missed? Help keep the list up to date.</p>
+    </div>
+    <div class="submit-wrap">
+      <form id="renameSubmitForm" novalidate>
+        <div class="form-group">
+          <label for="oldProductName">Old Product Name <span class="required-mark">*</span></label>
+          <input type="text" id="oldProductName" name="oldProductName" placeholder="e.g. SAP Hybris" required autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="newProductName">New / Current Name <span class="required-mark">*</span></label>
+          <input type="text" id="newProductName" name="newProductName" placeholder="e.g. SAP Commerce Cloud" required autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="renameYear">Year of Rename</label>
+          <input type="number" id="renameYear" name="renameYear" placeholder="e.g. 2018" min="1970" max="2030" />
+        </div>
+        <div class="form-group">
+          <label for="renameCategory">Category</label>
+          <select id="renameCategory" name="renameCategory">
+            <option value="" disabled selected>Select a category</option>
+            <option>ERP</option><option>HCM</option><option>Analytics</option><option>CRM</option>
+            <option>Procurement</option><option>Platform</option><option>Supply Chain</option>
+            <option>Integration</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sourceUrl">Source URL</label>
+          <input type="url" id="sourceUrl" name="sourceUrl" placeholder="https://help.sap.com/..." />
+        </div>
+        <div class="form-group">
+          <label for="renameNotes">Notes</label>
+          <textarea id="renameNotes" name="renameNotes" rows="4" placeholder="Any additional context, acquisition details, or relevant dates…"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="submitterEmail">Your Email <span class="optional-mark">(optional)</span></label>
+          <input type="email" id="submitterEmail" name="submitterEmail" placeholder="you@example.com" />
+        </div>
+        <button type="submit" class="btn-primary">Submit Rename</button>
+        <p class="submit-disclaimer">Submissions are reviewed before publishing. SAP product names are trademarks of SAP SE.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- DATABASE -->
+<section class="section section--alt" id="database">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Full Rename Database</h2>
+      <p class="section__desc">Complete searchable record of every SAP product rename.</p>
+    </div>
+    <div class="db-controls">
+      <div><label for="db-search">Search</label><input type="search" id="db-search" placeholder="Filter by name, category…" /></div>
+      <div><label for="db-category">Category</label>
+        <select id="db-category">
+          <option value="">All Categories</option>
+          <option>ERP</option><option>HCM</option><option>Analytics</option><option>CRM</option>
+          <option>Procurement</option><option>Platform</option><option>Supply Chain</option><option>Integration</option>
+        </select>
+      </div>
+    </div>
+    <div class="db-table-wrap">
+      <table class="db-table" id="database-table">
+        <thead><tr><th>Current Name</th><th>Previous Names</th><th>Category</th><th>Latest Rename</th><th># Renames</th></tr></thead>
+        <tbody id="database-tbody">
+          <tr data-category="ERP" data-product="SAP S/4HANA"><td><strong>SAP S/4HANA</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1973</span>SAP R/1</span><span class="prev-item"><span class="prev-year">1979</span>SAP R/2</span><span class="prev-item"><span class="prev-year">1992</span>SAP R/3</span><span class="prev-item"><span class="prev-year">2004</span>mySAP ERP / SAP ECC</span></div></td><td><span class="badge badge--erp">ERP</span></td><td>2015</td><td>4</td></tr>
+          <tr data-category="HCM" data-product="SAP SuccessFactors"><td><strong>SAP SuccessFactors</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2001</span>SuccessFactors (BizX platform)</span><span class="prev-item"><span class="prev-year">2012</span>SuccessFactors, an SAP company</span></div></td><td><span class="badge badge--hcm">HCM</span></td><td>2016</td><td>2</td></tr>
+          <tr data-category="CRM" data-product="SAP Commerce Cloud"><td><strong>SAP Commerce Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1997</span>Hybris (founded)</span><span class="prev-item"><span class="prev-year">2013</span>SAP Hybris Commerce</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2018</td><td>3</td></tr>
+          <tr data-category="Analytics" data-product="SAP Analytics Cloud"><td><strong>SAP Analytics Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2015</span>SAP Cloud for Planning → Analytics</span><span class="prev-item"><span class="prev-year">2016</span>SAP BusinessObjects Cloud</span></div></td><td><span class="badge badge--analytics">Analytics</span></td><td>2017</td><td>3</td></tr>
+          <tr data-category="Platform" data-product="SAP Business Technology Platform"><td><strong>SAP Business Technology Platform</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2012</span>SAP HANA Cloud Platform (HCP)</span><span class="prev-item"><span class="prev-year">2017</span>SAP Cloud Platform (SCP)</span></div></td><td><span class="badge badge--platform">Platform</span></td><td>2021</td><td>3</td></tr>
+          <tr data-category="Procurement" data-product="SAP Ariba"><td><strong>SAP Ariba</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1996</span>Ariba</span></div></td><td><span class="badge badge--procurement">Procurement</span></td><td>2014</td><td>2</td></tr>
+          <tr data-category="Procurement" data-product="SAP Concur"><td><strong>SAP Concur</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1993</span>Concur Technologies</span></div></td><td><span class="badge badge--procurement">T&amp;E</span></td><td>2018</td><td>1</td></tr>
+          <tr data-category="CRM" data-product="SAP Customer Experience"><td><strong>SAP Customer Experience (SAP CX)</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2016</span>SAP Hybris CEC</span><span class="prev-item"><span class="prev-year">2018</span>SAP C/4HANA</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2020</td><td>3</td></tr>
+          <tr data-category="Analytics" data-product="SAP Datasphere"><td><strong>SAP Datasphere</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2019</span>SAP Data Warehouse Cloud</span></div></td><td><span class="badge badge--analytics">Analytics</span></td><td>2023</td><td>1</td></tr>
+          <tr data-category="Analytics" data-product="SAP BusinessObjects"><td><strong>SAP BusinessObjects</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1990</span>Business Objects</span></div></td><td><span class="badge badge--analytics">Analytics</span></td><td>2008</td><td>1</td></tr>
+          <tr data-category="Integration" data-product="SAP Integration Suite"><td><strong>SAP Integration Suite</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2002</span>SAP Exchange Infrastructure (XI)</span><span class="prev-item"><span class="prev-year">2005</span>SAP Process Integration (PI)</span><span class="prev-item"><span class="prev-year">2013</span>SAP HANA Cloud Integration (HCI)</span><span class="prev-item"><span class="prev-year">2017</span>SAP Cloud Platform Integration (CPI)</span></div></td><td><span class="badge badge--platform">Integration</span></td><td>2021</td><td>4</td></tr>
+          <tr data-category="Platform" data-product="SAP Build Apps"><td><strong>SAP Build Apps</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2010</span>AppGyver</span><span class="prev-item"><span class="prev-year">2021</span>SAP AppGyver</span></div></td><td><span class="badge badge--platform">Low-Code</span></td><td>2022</td><td>2</td></tr>
+          <tr data-category="Platform" data-product="SAP Build Process Automation"><td><strong>SAP Build Process Automation</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2018</span>SAP Intelligent RPA (iRPA)</span><span class="prev-item"><span class="prev-year">2021</span>SAP Process Automation</span></div></td><td><span class="badge badge--platform">Automation</span></td><td>2022</td><td>3</td></tr>
+          <tr data-category="Procurement" data-product="SAP Fieldglass"><td><strong>SAP Fieldglass</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1999</span>b2bpeople.com → Fieldglass</span></div></td><td><span class="badge badge--procurement">Procurement</span></td><td>2014</td><td>2</td></tr>
+          <tr data-category="Platform" data-product="SAP Conversational AI"><td><strong>SAP Conversational AI</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2015</span>Recast.AI</span></div></td><td><span class="badge badge--platform">AI</span></td><td>2019</td><td>1</td></tr>
+          <tr data-category="Platform" data-product="SAP Signavio"><td><strong>SAP Signavio</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2009</span>Signavio GmbH</span></div></td><td><span class="badge badge--platform">BPM</span></td><td>2021</td><td>1</td></tr>
+          <tr data-category="Analytics" data-product="SAP Lumira"><td><strong>SAP Lumira</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2012</span>SAP Visual Intelligence</span></div></td><td><span class="badge badge--analytics">Analytics</span></td><td>2013</td><td>1</td></tr>
+          <tr data-category="CRM" data-product="SAP Sales Cloud"><td><strong>SAP Sales Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2011</span>Sales OnDemand / SAP Cloud for Customer (C4C)</span><span class="prev-item"><span class="prev-year">2016</span>SAP Hybris Cloud for Customer</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2018</td><td>4</td></tr>
+          <tr data-category="CRM" data-product="SAP Customer Data Cloud"><td><strong>SAP Customer Data Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2006</span>Gigya</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2017</td><td>1</td></tr>
+          <tr data-category="Platform" data-product="SAP Build Work Zone"><td><strong>SAP Build Work Zone</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2012</span>SAP Jam Collaboration</span><span class="prev-item"><span class="prev-year">2020</span>SAP Work Zone</span></div></td><td><span class="badge badge--platform">Workplace</span></td><td>2022</td><td>2</td></tr>
+          <tr data-category="CRM" data-product="SAP Marketing Cloud"><td><strong>SAP Marketing Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2014</span>SAP hybris Marketing</span><span class="prev-item"><span class="prev-year">2015</span>SAP Hybris Marketing</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2018</td><td>2</td></tr>
+          <tr data-category="CRM" data-product="SAP Service Cloud"><td><strong>SAP Service Cloud</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2016</span>SAP Hybris Service Cloud</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2018</td><td>1</td></tr>
+          <tr data-category="CRM" data-product="SAP Emarsys Customer Engagement"><td><strong>SAP Emarsys Customer Engagement</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2000</span>Emarsys (founded)</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2020</td><td>1</td></tr>
+          <tr data-category="CRM" data-product="SAP CPQ"><td><strong>SAP CPQ</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2018</span>CallidusCloud CPQ</span></div></td><td><span class="badge badge--crm">CRM</span></td><td>2018</td><td>1</td></tr>
+          <tr data-category="HCM" data-product="SAP SuccessFactors Incentive Management"><td><strong>SAP SuccessFactors Incentive Management</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1996</span>Callidus TrueComp</span><span class="prev-item"><span class="prev-year">2018</span>SAP Commissions</span></div></td><td><span class="badge badge--hcm">HCM</span></td><td>2023</td><td>3</td></tr>
+          <tr data-category="HCM" data-product="SAP Enable Now"><td><strong>SAP Enable Now</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2012</span>datango</span><span class="prev-item"><span class="prev-year">2014</span>SAP Workforce Performance Builder</span></div></td><td><span class="badge badge--hcm">HCM</span></td><td>2017</td><td>2</td></tr>
+          <tr data-category="Procurement" data-product="SAP Business Network"><td><strong>SAP Business Network</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">1996</span>Ariba Network</span></div></td><td><span class="badge badge--procurement">Procurement</span></td><td>2021</td><td>1</td></tr>
+          <tr data-category="Analytics" data-product="SAP Data Intelligence"><td><strong>SAP Data Intelligence</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2017</span>SAP Data Hub</span></div></td><td><span class="badge badge--analytics">Analytics</span></td><td>2019</td><td>1</td></tr>
+          <tr data-category="Platform" data-product="SAP LeanIX"><td><strong>SAP LeanIX</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2012</span>LeanIX (founded)</span></div></td><td><span class="badge badge--platform">EAM</span></td><td>2023</td><td>1</td></tr>
+          <tr data-category="Platform" data-product="SAP WalkMe"><td><strong>SAP WalkMe</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2011</span>WalkMe (founded)</span></div></td><td><span class="badge badge--platform">DAP</span></td><td>2024</td><td>1</td></tr>
+          <tr data-category="Platform" data-product="Qualtrics"><td><strong>Qualtrics (divested)</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2002</span>Qualtrics</span><span class="prev-item"><span class="prev-year">2019</span>SAP Qualtrics</span></div></td><td><span class="badge badge--platform">XM</span></td><td>2023</td><td>2</td></tr>
+          <tr data-category="HCM" data-product="SAP Litmos"><td><strong>SAP Litmos (divested)</strong></td><td><div class="prev-list"><span class="prev-item"><span class="prev-year">2007</span>Litmos</span><span class="prev-item"><span class="prev-year">2011</span>CallidusCloud Litmos</span><span class="prev-item"><span class="prev-year">2018</span>SAP Litmos</span></div></td><td><span class="badge badge--hcm">HCM</span></td><td>2022</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="db-count">Showing <span id="db-visible-count">32</span> of <span id="db-total-count">32</span> products</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__logo-main">🔄 ReTransform</div>
+      <div class="footer__logo-sub">SAP Edition</div>
+      <p class="footer__tagline">Tracking every SAP product name change, so you don't have to.</p>
+    </div>
+    <div>
+      <div class="footer__col-title">Navigate</div>
+      <ul class="footer__links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#leaderboard">Leaderboard</a></li>
+        <li><a href="#generator">Generator</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#submit">Submit</a></li>
+        <li><a href="#database">Database</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__col-title">About</div>
+      <ul class="footer__links">
+        <li><a href="https://renameforce.com" target="_blank">Inspired by RenameForce</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>ReTransform SAP Edition is a parody and educational site. Not affiliated with SAP SE. All product names are trademarks of their respective owners.</span>
+    <span>© 2024 ReTransform SAP Edition</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // DARK MODE
+  function initDarkMode() {
+    const btn = document.getElementById("darkToggle");
+    const html = document.documentElement;
+    function apply(dark) {
+      html.classList.toggle("dark", dark);
+      if (btn) btn.textContent = dark ? "☀️" : "🌙";
+    }
+    apply(localStorage.getItem("darkMode") === "true");
+    if (btn) btn.addEventListener("click", function () {
+      const isDark = html.classList.contains("dark");
+      apply(!isDark);
+      localStorage.setItem("darkMode", String(!isDark));
+    });
+  }
+
+  // MOBILE NAV
+  function initMobileNav() {
+    const burger = document.getElementById("navBurger");
+    const links = document.getElementById("navLinks");
+    if (burger && links) {
+      burger.addEventListener("click", function () {
+        links.classList.toggle("open");
+      });
+    }
+  }
+
+  // SMOOTH SCROLL + ACTIVE NAV
+  function initNav() {
+    document.querySelectorAll("nav a[href^='#']").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        const target = document.querySelector(a.getAttribute("href"));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth" }); }
+      });
+    });
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
+    const sections = Array.from(document.querySelectorAll("section[id]"));
+    window.addEventListener("scroll", function () {
+      let cur = "";
+      sections.forEach(function (s) { if (s.getBoundingClientRect().top <= 100) cur = s.id; });
+      navLinks.forEach(function (a) { a.classList.toggle("active", a.getAttribute("href") === "#" + cur); });
+    }, { passive: true });
+  }
+
+  // SEARCH
+  function initSearch() {
+    const heroInput = document.getElementById("search-input");
+    const dbInput = document.getElementById("db-search");
+    const dbCat = document.getElementById("db-category");
+
+    function filterCards(query) {
+      const q = query.toLowerCase();
+      let visible = 0;
+      document.querySelectorAll(".product-card").forEach(function (card) {
+        const match = !q || (card.dataset.name || "").toLowerCase().includes(q) || (card.dataset.previous || "").toLowerCase().includes(q);
+        card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+      const noRes = document.getElementById("no-results-cards");
+      if (noRes) noRes.style.display = visible === 0 && q ? "" : "none";
+    }
+
+    function filterTable() {
+      const q = (dbInput ? dbInput.value : "").toLowerCase();
+      const cat = dbCat ? dbCat.value : "";
+      let visible = 0;
+      document.querySelectorAll("#database-tbody tr").forEach(function (row) {
+        const textMatch = !q || row.textContent.toLowerCase().includes(q);
+        const catMatch = !cat || row.dataset.category === cat;
+        row.style.display = textMatch && catMatch ? "" : "none";
+        if (textMatch && catMatch) visible++;
+      });
+      const vc = document.getElementById("db-visible-count");
+      if (vc) vc.textContent = visible;
+    }
+
+    if (heroInput) heroInput.addEventListener("input", function () { filterCards(heroInput.value); });
+    if (dbInput) dbInput.addEventListener("input", filterTable);
+    if (dbCat) dbCat.addEventListener("change", filterTable);
+
+    // Sync hero search to db
+    if (heroInput && dbInput) {
+      heroInput.addEventListener("input", function () { dbInput.value = heroInput.value; filterTable(); });
+    }
+  }
+
+  // CATEGORY FILTERS
+  function initFilters() {
+    document.querySelectorAll("[data-filter]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("[data-filter]").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        const f = btn.dataset.filter;
+        document.querySelectorAll(".product-card").forEach(function (card) {
+          card.style.display = (f === "All" || !f || card.dataset.category === f) ? "" : "none";
+        });
+      });
+    });
+  }
+
+  // CARD EXPAND
+  function initCards() {
+    document.querySelectorAll(".card__expand-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const detail = btn.nextElementSibling;
+        if (!detail) return;
+        const open = detail.style.display !== "none";
+        detail.style.display = open ? "none" : "";
+        btn.textContent = open ? "Show Notes" : "Hide Notes";
+      });
+    });
+  }
+
+  // LEADERBOARD TABS
+  function initTabs() {
+    const btns = document.querySelectorAll(".tab-btn");
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        btns.forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.remove("active"); });
+        const panel = document.getElementById(btn.dataset.tab);
+        if (panel) panel.classList.add("active");
+      });
+    });
+  }
+
+  // NAME GENERATOR
+  function initGenerator() {
+    const adj = ["Intelligent","Smart","Digital","Next-Gen","Advanced","Unified","Connected","Adaptive","Embedded","Integrated"];
+    const domains = ["Business","Enterprise","Commerce","Analytics","Experience","Integration","Automation","Operations","Workforce","Financial"];
+    const nouns = ["Cloud","Suite","Hub","Platform","Engine","Studio","Portal","Workspace","Network","Gateway"];
+    const suf = ["Management","Solutions","Services","Edition","Pro","Plus","360","One"];
+    function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+    const genBtn = document.getElementById("generate-name-btn");
+    const copyBtn = document.getElementById("copy-name-btn");
+    const out = document.getElementById("generated-name");
+    if (genBtn) genBtn.addEventListener("click", function () {
+      if (out) out.textContent = "SAP " + pick(adj) + " " + pick(domains) + " " + pick(nouns) + " " + pick(suf);
+    });
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      const text = out ? out.textContent : "";
+      navigator.clipboard.writeText(text).then(function () {
+        copyBtn.textContent = "Copied!";
+        setTimeout(function () { copyBtn.textContent = "Copy"; }, 1500);
+      }).catch(function () {});
+    });
+  }
+
+  // QUIZ
+  function initQuiz() {
+    const container = document.getElementById("quiz-container");
+    if (!container) return;
+    const questions = [
+      { text: "What was SAP Commerce Cloud previously known as?", options: ["SAP Hybris","SAP CRM","SAP C/4HANA","SAP Marketing Cloud"], correct: 0 },
+      { text: "SAP S/4HANA replaced which product?", options: ["SAP R/2","SAP NetWeaver","SAP ECC","mySAP Business Suite"], correct: 2 },
+      { text: "What year did SAP complete the acquisition of SuccessFactors?", options: ["2009","2012","2014","2016"], correct: 1 },
+      { text: "SAP Business Technology Platform was formerly known as?", options: ["SAP HANA Platform","SAP NetWeaver","SAP Cloud Platform","SAP Integration Hub"], correct: 2 },
+      { text: "Which product was formerly called 'Ariba Network'?", options: ["SAP Procurement Hub","SAP Business Network","SAP Supply Chain Cloud","SAP Ariba Connect"], correct: 1 }
+    ];
+    let cur = 0, score = 0, answered = false;
+    const qEl = document.getElementById("quiz-question");
+    const optsEl = document.getElementById("quiz-options");
+    const bar = document.getElementById("quiz-progress-bar");
+    const label = document.getElementById("quiz-progress-label");
+    const scoreScreen = document.getElementById("quiz-score-screen");
+    const qScreen = document.getElementById("quiz-question-screen");
+    const scoreMsg = document.getElementById("quiz-score-message");
+    const restartBtn = document.getElementById("quiz-restart-btn");
+
+    function render() {
+      answered = false;
+      const q = questions[cur];
+      if (qEl) qEl.textContent = q.text;
+      if (optsEl) {
+        optsEl.innerHTML = "";
+        q.options.forEach(function (opt, i) {
+          const b = document.createElement("button");
+          b.className = "quiz-option-btn";
+          b.textContent = opt;
+          b.addEventListener("click", function () { answer(i, b); });
+          optsEl.appendChild(b);
+        });
+      }
+      if (bar) bar.style.width = ((cur / questions.length) * 100) + "%";
+      if (label) label.textContent = (cur + 1) + " / " + questions.length;
+    }
+
+    function answer(idx, btn) {
+      if (answered) return;
+      answered = true;
+      const correct = questions[cur].correct;
+      const allBtns = optsEl.querySelectorAll(".quiz-option-btn");
+      allBtns.forEach(function (b) { b.disabled = true; });
+      if (idx === correct) { score++; btn.style.background = "#22c55e"; btn.style.color = "#fff"; }
+      else { btn.style.background = "#ef4444"; btn.style.color = "#fff"; if (allBtns[correct]) { allBtns[correct].style.background = "#22c55e"; allBtns[correct].style.color = "#fff"; } }
+      setTimeout(function () {
+        cur++;
+        if (cur >= questions.length) showScore();
+        else render();
+      }, 1000);
+    }
+
+    function showScore() {
+      if (qScreen) qScreen.style.display = "none";
+      if (scoreScreen) scoreScreen.style.display = "";
+      if (bar) bar.style.width = "100%";
+      if (label) label.textContent = questions.length + " / " + questions.length;
+      const msg = score === 5 ? "SAP Naming Expert! 🏆" : score >= 3 ? "Pretty good! 👍" : "Keep studying the renames! 📚";
+      if (scoreMsg) scoreMsg.textContent = "You scored " + score + " / " + questions.length + " — " + msg;
+    }
+
+    if (restartBtn) restartBtn.addEventListener("click", function () {
+      cur = 0; score = 0;
+      if (qScreen) qScreen.style.display = "";
+      if (scoreScreen) scoreScreen.style.display = "none";
+      render();
+    });
+
+    render();
+  }
+
+  // SUBMIT FORM
+  function initForm() {
+    const form = document.getElementById("renameSubmitForm");
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+      form.querySelectorAll("[required]").forEach(function (f) {
+        if (!f.value.trim()) { valid = false; f.style.borderColor = "#ef4444"; }
+        else f.style.borderColor = "";
+      });
+      if (!valid) return;
+      let msg = form.querySelector(".form-success");
+      if (!msg) { msg = document.createElement("p"); msg.className = "form-success"; msg.style.cssText = "color:#22c55e;font-weight:700;margin-top:0.75rem"; form.appendChild(msg); }
+      msg.textContent = "Thanks! Your submission will be reviewed.";
+      form.reset();
+      setTimeout(function () { msg.textContent = ""; }, 5000);
+    });
+  }
+
+  // BOOT
+  document.addEventListener("DOMContentLoaded", function () {
+    initDarkMode();
+    initMobileNav();
+    initNav();
+    initSearch();
+    initFilters();
+    initCards();
+    initTabs();
+    initGenerator();
+    initQuiz();
+    initForm();
+  });
+})();
+</script>
+</body>
+</html>
